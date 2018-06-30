@@ -13,14 +13,14 @@ private:
     int dim;
 
     std::vector<std::vector<bool> > world;
-
+    std::vector<bool> stasisRules;
+    std::vector<bool> lifeRules;
 
     bool getAdjCell(int x, int y, int dir);
 
 public:
     bool wrap;
-    std::vector<bool> stasisRules;
-    std::vector<bool> lifeRules;
+
     Life();
     Life(int d, bool w);
 

@@ -576,7 +576,7 @@
 1528399734 c:\users\norphesius\snakepit\codeblocksprojects\life\switch.h
 	"Entity.h"
 
-1530346585 source:c:\users\norphesius\snakepit\codeblocksprojects\conway's game of life\main.cpp
+1530347175 source:c:\users\norphesius\snakepit\codeblocksprojects\conway's game of life\main.cpp
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 	<iostream>
@@ -609,7 +609,7 @@
 	<cmath>
 	<SFML/Graphics/Color.hpp>
 
-1530345788 c:\users\norphesius\snakepit\codeblocksprojects\conway's game of life\life.h
+1530347710 c:\users\norphesius\snakepit\codeblocksprojects\conway's game of life\life.h
 	<iostream>
 	<stdio.h>
 	<vector>
