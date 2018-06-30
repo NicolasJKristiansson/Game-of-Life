@@ -576,10 +576,11 @@
 1528399734 c:\users\norphesius\snakepit\codeblocksprojects\life\switch.h
 	"Entity.h"
 
-1530187026 source:c:\users\norphesius\snakepit\codeblocksprojects\conway's game of life\main.cpp
+1530346585 source:c:\users\norphesius\snakepit\codeblocksprojects\conway's game of life\main.cpp
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 	<iostream>
+	<sstream>
 	<stdio.h>
 	<vector>
 	<stdlib.h>
@@ -608,7 +609,7 @@
 	<cmath>
 	<SFML/Graphics/Color.hpp>
 
-1530176649 c:\users\norphesius\snakepit\codeblocksprojects\conway's game of life\life.h
+1530345788 c:\users\norphesius\snakepit\codeblocksprojects\conway's game of life\life.h
 	<iostream>
 	<stdio.h>
 	<vector>
@@ -616,7 +617,7 @@
 	<string>
 	<cmath>
 
-1528955227 source:c:\users\norphesius\snakepit\codeblocksprojects\conway's game of life\life.cpp
+1530346171 source:c:\users\norphesius\snakepit\codeblocksprojects\conway's game of life\life.cpp
 	"life.h"
 
 1530006679 source:c:\users\norphesius\snakepit\codeblocksprojects\conway's game of life\panel.cpp
@@ -631,7 +632,7 @@
 	<cmath>
 	<SFML/Graphics.hpp>
 
-1530182961 c:\users\norphesius\snakepit\codeblocksprojects\conway's game of life\button.h
+1530344194 c:\users\norphesius\snakepit\codeblocksprojects\conway's game of life\button.h
 	<iostream>
 	<stdio.h>
 	<vector>
@@ -640,6 +641,6 @@
 	<cmath>
 	<SFML/Graphics.hpp>
 
-1530187062 source:c:\users\norphesius\snakepit\codeblocksprojects\conway's game of life\button.cpp
+1530344149 source:c:\users\norphesius\snakepit\codeblocksprojects\conway's game of life\button.cpp
 	"button.h"
 

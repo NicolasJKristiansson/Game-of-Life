@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
+#include <sstream>
 #include <stdio.h>
 #include <vector>
 #include <stdlib.h>
@@ -49,7 +50,7 @@ int main(){
     if(!font.loadFromFile("consola.ttf")){
         std::cout << "oh fuck main";
     }
-
+    /// Bad code incoming!
     int offset = 0;
     int shift = 1;
 
@@ -122,9 +123,76 @@ int main(){
     runningTxt.setCharacterSize(charSize);
     runningTxt.setFillColor(sf::Color::Green);
     runningTxt.setPosition(sf::Vector2f(y+charSize,charSize*shift+offset));
+    shift++;
+    offset+=10;
+    sf::Text thresholdTxt;
+    thresholdTxt.setFont(font);
+    thresholdTxt.setString("Thresholds:");
+    thresholdTxt.setCharacterSize(charSize);
+    thresholdTxt.setFillColor(sf::Color::Black);
+    thresholdTxt.setPosition(sf::Vector2f(y+charSize,charSize*shift+offset));
+    shift++;
+    offset++;
+    /// TODO: Add descriptor.
+    std::vector<sf::Text> settingNums;
+    std::vector<Button> stasisButts;
+    std::vector<sf::RectangleShape> stasisIndic;
+    std::vector<Button> lifeButts;
+    std::vector<sf::RectangleShape> lifeIndic;
+    for(int k = 0; k < 9; k++){
+        sf::Text num;
+        num.setFont(font);
+        /// No friggin to_string with this compiler
+        std::stringstream ss;
+        ss << k;
+        std::string str = ss.str();
+        num.setString(str);
+        num.setCharacterSize(charSize);
+        num.setFillColor(sf::Color::Black);
+        num.setPosition(sf::Vector2f(y+charSize*(k+1),charSize*shift+offset));
+        settingNums.push_back(num);
+
+        Button stasis(sf::Vector2f(y+charSize*(k+1)-3,charSize*(shift+1)+offset+2),charSize,"",true);
+        if(k == 3 || k == 2){
+            stasis.trigger();
+        }
+        stasisButts.push_back(stasis);
+
+        sf::RectangleShape statRect;
+        statRect.setPosition(sf::Vector2f(y+charSize*(k+1)-3,charSize*(shift+1)+offset+2));
+        statRect.setSize(sf::Vector2f(charSize,charSize));
+        statRect.setFillColor(sf::Color::Black);
+        stasisIndic.push_back(statRect);
+
+        Button life(sf::Vector2f(y+charSize*(k+1)-3,charSize*(shift+2)+offset+2),charSize,"",true);
+        if(k == 3){
+            life.trigger();
+        }
+        lifeButts.push_back(life);
+
+        sf::RectangleShape lifeRect; /// feelsbadman
+        lifeRect.setPosition(sf::Vector2f(y+charSize*(k+1)-3,charSize*(shift+2)+offset+2));
+        lifeRect.setSize(sf::Vector2f(charSize,charSize));
+        lifeRect.setFillColor(sf::Color::Black);
+        lifeIndic.push_back(lifeRect);
+    }
+    sf::Text stasisTxt;
+    stasisTxt.setFont(font);
+    stasisTxt.setString("Survives");
+    stasisTxt.setCharacterSize(charSize);
+    stasisTxt.setFillColor(sf::Color::Black);
+    stasisTxt.setPosition(sf::Vector2f(stasisIndic[8].getPosition().x+charSize+5,stasisIndic[8].getPosition().y-2));
+    sf::Text lifeTxt;
+    lifeTxt.setFont(font);
+    lifeTxt.setString("Is Born");
+    lifeTxt.setCharacterSize(charSize);
+    lifeTxt.setFillColor(sf::Color::Black);
+    lifeTxt.setPosition(sf::Vector2f(lifeIndic[8].getPosition().x+charSize+5,lifeIndic[8].getPosition().y-2));
+    /// TODO: Create labels for threshold changers
 
 
 
+    /// Bad code over! (yay)
 
     Life game(cell_no/y,false);
 
@@ -217,7 +285,7 @@ int main(){
                         game.clearWorld();
                     }
                 }
-
+                /// Collision for color buttons
                 if(greenButt.check(pos)){
                     greenButt.trigger();
                     if(greenButt.getState()){
@@ -245,20 +313,54 @@ int main(){
                         col_live = sf::Color::Red;
                     }
                 }
+                /// Collision for threshold buttons
+                for(int k = 0; k < 9; k++){
+                    if(stasisButts[k].check(pos)){
+                        stasisButts[k].trigger();
+                        if(stasisButts[k].getState()){
+                            stasisIndic[k].setFillColor(sf::Color::Yellow);
+                            game.changeStasisRule(k,true);
+                        }
+                        else{
+                            stasisIndic[k].setFillColor(sf::Color::Black);
+                            game.changeStasisRule(k,false);
+                        }
+                    }
+
+                    if(lifeButts[k].check(pos)){
+                        lifeButts[k].trigger();
+                        if(lifeButts[k].getState()){
+                            lifeIndic[k].setFillColor(sf::Color::Green);
+                            game.changeLifeRule(k,true);
+                        }
+                        else{
+                            lifeIndic[k].setFillColor(sf::Color::Black);
+                            game.changeLifeRule(k,false);
+                        }
+                    }
+                }
             }
 
-            if(!mouseLDown && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-                //std::cout << "MouseButtonPressed Caught!" << std::endl;
-
-                //std::cout << cell_border << std::endl;
-            }
-
-
-
-
-            /// check if left mouse button is down
+            /// Check if left mouse button is down
             mouseLDown = sf::Mouse::isButtonPressed(sf::Mouse::Left);
             //std::cout << mouseLDown << std::endl;
+        }
+
+        /// Check threshold indicators for color
+        for(int k = 0; k < 9; k++){
+            if(stasisButts[k].getState()){
+                stasisIndic[k].setFillColor(sf::Color::Yellow);
+            }
+            else{
+                stasisIndic[k].setFillColor(sf::Color::Black);
+            }
+
+            if(lifeButts[k].getState()){
+                lifeIndic[k].setFillColor(sf::Color::Green);
+            }
+            else{
+                lifeIndic[k].setFillColor(sf::Color::Black);
+            }
         }
 
         /// draw everything here...
@@ -282,6 +384,16 @@ int main(){
         }else{
             window.draw(runningTxt);
         }
+        window.draw(thresholdTxt);
+        for(int k = 0; k < 9; k++){
+            window.draw(settingNums[k]);
+            stasisButts[k].draw(&window);
+            window.draw(stasisIndic[k]);
+            lifeButts[k].draw(&window);
+            window.draw(lifeIndic[k]);
+        }
+        window.draw(stasisTxt);
+        window.draw(lifeTxt);
 
         window.display();
         //Sleep(100);

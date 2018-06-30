@@ -13,6 +13,20 @@ Life::Life() : dim(6), wrap(false){
         }
         world.push_back(row);
     }
+    for(int k = 0; k < 9; k++){
+        if(k == 2){
+            stasisRules.push_back(true);
+            lifeRules.push_back(true);
+        }
+        else if(k == 3){
+            lifeRules.push_back(true);
+            stasisRules.push_back(false);
+        }
+        else{
+            stasisRules.push_back(false);
+            lifeRules.push_back(false);
+        }
+    }
 }
 
 Life::Life(int d, bool w) : dim(d), wrap(w){
@@ -22,6 +36,20 @@ Life::Life(int d, bool w) : dim(d), wrap(w){
             row.push_back(false);
         }
         world.push_back(row);
+    }
+    for(int k = 0; k < 9; k++){
+        if(k == 2){
+            stasisRules.push_back(true);
+            lifeRules.push_back(false);
+        }
+        else if(k == 3){
+            lifeRules.push_back(true);
+            stasisRules.push_back(true);
+        }
+        else{
+            stasisRules.push_back(false);
+            lifeRules.push_back(false);
+        }
     }
 }
 
@@ -47,6 +75,15 @@ bool Life::getRefreshedCell(int x, int y){
             no_adj++;
         }
     }
+
+    if(world[x][y]){
+        status = stasisRules[no_adj] && world[x][y];
+    }
+    else{
+        status = lifeRules[no_adj] && !world[x][y];
+    }
+
+/*
     if(no_adj < 2){
         status = false;
     } else if(no_adj == 2){
@@ -56,6 +93,7 @@ bool Life::getRefreshedCell(int x, int y){
     } else{
         status = false;
     }
+*/
     return status;
 }
 
@@ -185,4 +223,12 @@ bool Life::getAdjCell(int x, int y, int dir){
         return false;
     }
     return adj;
+}
+
+void Life::changeStasisRule(int amount, bool b){
+    stasisRules[amount] = b;
+}
+
+void Life::changeLifeRule(int amount, bool b){
+    lifeRules[amount] = b;
 }

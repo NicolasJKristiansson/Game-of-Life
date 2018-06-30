@@ -14,11 +14,13 @@ private:
 
     std::vector<std::vector<bool> > world;
 
+
     bool getAdjCell(int x, int y, int dir);
 
 public:
     bool wrap;
-
+    std::vector<bool> stasisRules;
+    std::vector<bool> lifeRules;
     Life();
     Life(int d, bool w);
 
@@ -29,6 +31,8 @@ public:
     void refreshWorld();
     void clearWorld();
     void simWorld(int n);
+    void changeStasisRule(int,bool);
+    void changeLifeRule(int,bool);
 
 };
 
