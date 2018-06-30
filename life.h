@@ -13,6 +13,8 @@ private:
     int dim;
 
     std::vector<std::vector<bool> > world;
+    std::vector<bool> stasisRules;
+    std::vector<bool> lifeRules;
 
     bool getAdjCell(int x, int y, int dir);
 
@@ -29,6 +31,8 @@ public:
     void refreshWorld();
     void clearWorld();
     void simWorld(int n);
+    void changeStasisRule(int,bool);
+    void changeLifeRule(int,bool);
 
 };
 
